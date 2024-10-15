@@ -5,3 +5,6 @@ export interface Pizza {
   pizza_media: number;
   pizza_grande: number;
 }
+export interface Params {
+  id: number;
+}

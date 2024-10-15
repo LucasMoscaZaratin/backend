@@ -1,14 +1,16 @@
 import type { FastifyInstance } from "fastify";
 import { query } from "../db/db";
-import type { Pizza } from "../interface/pizza-interface";
+import type { Params, Pizza } from "../interface/pizza-interface";
 
 const pizzaRoutes = async (app: FastifyInstance) => {
-  app.get("/getPizzas", async (request, reply) => {
+  app.get<{ Params: Params }>("/getPizzas/:id", async (request, reply) => {
+    const { id } = request.params;
     try {
-      const text = "SELECT * FROM pizzas";
-      const res = await query(text);
+      const text = "SELECT * FROM pizzas WHERE id = $1 ";
+      const res = await query(text, [id]);
       reply.send(res.rows);
     } catch (err) {
+      console.log(err);
       reply.code(500).send({ error: "Erro ao buscar as pizzas" });
     }
   });
