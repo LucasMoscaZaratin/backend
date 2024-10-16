@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 export const pool = new Pool({
-  host: process.env.PGHOST,
+  host: process.env.PGHOSTPROD,
   user: process.env.PGUSER,
   password: process.env.PGPASSWORD,
   database: process.env.PGDATABASE,
